@@ -1,2 +1,2 @@
-# ML_Algos
-Machine learning algorithms from scratch
+# Probability Distributions
+Probability and Staistics algorithms
