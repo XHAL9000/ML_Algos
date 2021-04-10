@@ -15,11 +15,11 @@ class GMM  :
         self.clusters = clusters/np.sum(clusters,axis=1,keepdims=1)
         self.pk, self.mu, self.cov  = self.maxim()
     
-    def normalProb(self,x,p,mu,cov):
+    def normalProb(self,x,mu,cov):
         d = self.X.shape[1]
         inv_cov = np.linalg.pinv(cov)
-        det_cov = np.linalg.det(cov) ** 2
-        coef1 = 1 /( det_cov * ((2*math.pi)** d/2 ))
+        det_cov = math.sqrt(np.linalg.det(cov)) + 0.00001
+        coef1 = 1 /( det_cov * ((2*math.pi)** (d/2) ))
         coef = np.dot(np.dot((x-mu).T , inv_cov) , (x-mu) )
         coef2 = math.exp( (-1/2) * coef )
         return coef1 * coef2
@@ -39,7 +39,7 @@ class GMM  :
     def expect(self):
         for i in range(self.X.shape[0]):
             for j in range(self.k):
-                self.clusters[i,j] = self.normalProb(self.X[i,:],self.pk[j],self.mu[j,:],self.cov[j,:,:])
+                self.clusters[i,j] = self.pk[j]*self.normalProb(self.X[i,:],self.mu[j,:],self.cov[j,:,:])
             self.clusters = self.clusters / np.sum(self.clusters,axis=1,keepdims=1)
         return self.clusters
     
@@ -52,7 +52,6 @@ class GMM  :
     
     def fit(self,max_iter=10):
         for _ in range(max_iter):
-            self.clusters = self.expect()
-            self.params = self.maxim()
+            self.expect()
+            self.maxim()
         print("Training Completed!")
-            
