@@ -22,12 +22,12 @@ def neighbors_mat(X,eps):
     :param eps: radius
     :return: a square matrix NxN = Adjacency matrix  1 if two instances are close else 0
     """
-    mat_nbrs = np.zeros((X.shape[1],X.shape[1]))
+    mat_nbrs = np.zeros((X.shape[0],X.shape[0]))
     for i in range(X.shape[0]) : 
         for j in range(i+1,X.shape[0]):
             if dist(X[i,:],X[j,:]) <= eps :
-                mat_dist[j,i] = 1
-                mat_dist[i,j] = 1
+                mat_nbrs[j,i] = 1
+                mat_nbrs[i,j] = 1
     return mat_nbrs
     
 
@@ -85,15 +85,19 @@ def dbscan(X, eps, minPts):
     
     mat_nbrs = neighbors_mat(X,eps)
     cores = get_core_id(mat_nbrs,minPts)
+    print(cores)
     clsId = 1
-    nPoints = len(data)
-    clusterRes = [UNASSIGNED] * nPoints
+    nPoints = X.shape[0]
+    clusters = [UNASSIGNED] * nPoints
     for ptId in range(nPoints):
-        if clusterRes[ptId] == UNASSIGNED:
+        if clusters[ptId] == UNASSIGNED:
             if cores[ptId] == 0 :
-                clusterRes[ptId] = NOISE
+                clusters[ptId] = NOISE
             else :
                 clusters[ptId] = clsId
-                clusters = assign_cls(mat_nbrs, clusters,cores, pntId, clsId, eps , minPts)
+                clusters = assign_cls(mat_nbrs, clusters,cores, ptId, clsId, eps , minPts)
                 clsId = clsId + 1
     return clusters , clsId
+
+
+
