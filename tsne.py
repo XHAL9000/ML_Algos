@@ -87,6 +87,7 @@ def t_sne(X,n_dim=2,prep_wanted=10,lr= 0.1 , momentum = 0.5, epochs = 1000):
     p_diff = diff_ij(X)
     p_dist = np.sum(p_diff**2,axis=2) # NxN euclidian distances matrix
     prep,p_prob,var = bisection_var(p_dist,prep_wanted,tol = 0.001, max_iter=500)
+    p_prob = (p_prob + p_prob.T) / (2 *n)
     y_embed = 0.0001 * np.random.randn(n,n_dim) # Generate random embeddings with 10E-4 std
     y_embed_old = y_embed
     for i in range(epochs) : 
