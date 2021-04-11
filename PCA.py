@@ -1,4 +1,4 @@
-class ACP : 
+class PCA : 
     def __init__(self,data):
         self.data = data
         self.dataStd = data - np.mean(data, axis = 0, keepdims = True)
