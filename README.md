@@ -5,7 +5,8 @@
 ### Gaussian Misxture Model
 ### DBSCAN
 ## Dimensionality Reduction
-### PCA 
+### PCA
+### KPCA
 ### t-SNE
 
 
