@@ -2,7 +2,7 @@
 
 ## Clustering Algorithms
 ### KMEANS
-### Gaussian Misxture Model
+### Gaussian Mixture Model
 ### DBSCAN
 ## Dimensionality Reduction
 ### PCA
