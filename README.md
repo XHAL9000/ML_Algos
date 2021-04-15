@@ -2,6 +2,7 @@
 
 ## Clustering Algorithms
 ### KMEANS
+### Fuzzy KMEANS
 ### Gaussian Mixture Model
 ### DBSCAN
 ## Dimensionality Reduction
